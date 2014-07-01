@@ -18,7 +18,7 @@ router.get('/countries', function (req, res) {
         
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var countryList = json.PickUpCountryListRS.CountryList.Country;
+        var countryList = json.PickUpCountryListRS.CountryList;
         console.log(countryList);
         res.json(countryList);
     });
@@ -35,7 +35,7 @@ router.get('/cities/:country', function (req, res) {
 
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.PickUpCityListRS.CityList.City;
+        var dataToDisplay = json.PickUpCityListRS.CityList;
 
         res.json(dataToDisplay);
     });
@@ -51,7 +51,7 @@ router.get('/pickUpLocation/:country/:city', function (req, res) {
         
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.PickUpLocationListRS.LocationList.Location;
+        var dataToDisplay = json.PickUpLocationListRS.LocationList;
 
         res.json(dataToDisplay);
     });
@@ -66,7 +66,7 @@ router.get('/dropOffCountry/:countryName/:cityName/:locationName/:locationID', f
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.DropOffCountryListRS.CountryList.Country;
+        var dataToDisplay = json.DropOffCountryListRS.CountryList;
 
         res.json(dataToDisplay);
     });
@@ -81,7 +81,7 @@ router.get('/dropOffCity/:countryName/:cityName/:locationName/:locationID/:dropO
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.DropOffCityListRS.CityList.City;
+        var dataToDisplay = json.DropOffCityListRS.CityList;
 
         res.json(dataToDisplay);
     });
@@ -95,7 +95,7 @@ router.get('/dropOffLocation/:countryName/:cityName/:locationName/:locationID/:d
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.DropOffLocationListRS.LocationList.Location;
+        var dataToDisplay = json.DropOffLocationListRS.LocationList;
 
         res.json(dataToDisplay);
     });
@@ -109,7 +109,7 @@ router.get('/pickUpOpenTime/:countryName/:cityName/:locationName/:locationID/:dr
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
         var json = JSON.parse(data);
-        var dataToDisplay = json.PickUpOpenTimeRS.OpenTime;
+        var dataToDisplay = json.PickUpOpenTimeRS;
 
         res.json(dataToDisplay);
     });
