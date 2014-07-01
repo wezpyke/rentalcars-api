@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
 /* GET countries */
 router.get('/countries', function (req, res) {
-    var url = 'http://xml.rentalcars.com/service/ServiceRequest.do?serverName=www.rentalcars.com&xml=%3CPickUpCountryListRQ%3E%3CCredentials%20username=%22' + rentalCars.username + '%22%20password=%22' + rentalCars.password + '%22%20remoteIp=%22' + rentalCars.remoteIp + '%22/%3E%3C/PickUpCountryListRQ%3E';
+    var url = rentalCars.url + encodeURI('<PickUpCountryListRQ>' + rentalCars.creds + '</PickUpCountryListRQ>');
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         
         var data = parser.toJson(body);
