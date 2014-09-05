@@ -15,7 +15,8 @@ router.get('/', function (req, res) {
 
 /* GET countries */
 router.get('/countries', function (req, res) {
-    var url = rentalCars.url + encodeURI('<PickUpCountryListRQ>' + rentalCars.creds + '</PickUpCountryListRQ>');
+    var queryString = '<PickUpCountryListRQ>' + rentalCars.creds + '</PickUpCountryListRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
 
         var data = parser.toJson(body);
@@ -29,8 +30,12 @@ router.get('/countries', function (req, res) {
 
 /* GET cities */
 router.get('/cities/:country', function (req, res) {
-    var url;
-    url = rentalCars.url + encodeURI('<?xml version="1.0" ?><PickUpCityListRQ>' + rentalCars.creds + '<Country>' + req.params.country + '</Country></PickUpCityListRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<PickUpCityListRQ>' + rentalCars.creds +
+                          '<Country>' + req.params.country +
+                          '</Country>' +
+                        '</PickUpCityListRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
     console.log(url);
 
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
@@ -46,7 +51,12 @@ router.get('/cities/:country', function (req, res) {
 
 /* GET pickUpLocation */
 router.get('/pickUpLocation/:country/:city', function (req, res) {
-    var url = rentalCars.url + encodeURI('<?xml version="1.0" ?><PickUpLocationListRQ>' + rentalCars.creds + '<Country>' + req.params.country + '</Country><City>' + req.params.city + '</City></PickUpLocationListRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<PickUpLocationListRQ>' + rentalCars.creds +
+                          '<Country>' + req.params.country + '</Country>' +
+                          '<City>' + req.params.city + '</City>' +
+                        '</PickUpLocationListRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
 
     console.log(url);
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
@@ -62,7 +72,11 @@ router.get('/pickUpLocation/:country/:city', function (req, res) {
 
 /* GET dropOffCountry */
 router.get('/dropOffCountry/:countryName/:cityName/:locationName/:locationID', function (req, res) {
-    var url = rentalCars.url + encodeURI('<?xml version="1.0" ?><DropOffCountryListRQ>' + rentalCars.creds + '<Location country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location></DropOffCountryListRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<DropOffCountryListRQ>' + rentalCars.creds +
+                          '<Location country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location>' +
+                        '</DropOffCountryListRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
 
     console.log(url);
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
@@ -97,7 +111,13 @@ router.get('/dropOffCity/:countryName/:cityName/:locationName/:locationID/:dropO
 
 /* GET dropOffLocation */
 router.get('/dropOffLocation/:countryName/:cityName/:locationName/:locationID/:dropOffCountryName/:dropOffCityName', function (req, res) {
-    var url = rentalCars.url + encodeURI('<?xml version="1.0" ?><DropOffLocationListRQ>' + rentalCars.creds + '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location><Country>' + req.params.dropOffCountryName + '</Country><City>' + req.params.dropOffCityName + '</City></DropOffLocationListRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<DropOffLocationListRQ>' + rentalCars.creds +
+                          '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location>' +
+                          '<Country>' + req.params.dropOffCountryName + '</Country>' +
+                          '<City>' + req.params.dropOffCityName + '</City>' +
+                        '</DropOffLocationListRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
 
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
@@ -111,7 +131,14 @@ router.get('/dropOffLocation/:countryName/:cityName/:locationName/:locationID/:d
 
 /* GET pickUpOpenTime */
 router.get('/pickUpOpenTime/:countryName/:cityName/:locationName/:locationID/:dropOffCountryName/:dropOffCityName/:dropOffLocationID/:pickUpYear/:pickUpMonth/:pickUpDay', function (req, res) {
-    var url = rentalCars.url + encodeURI('<?xml version="1.0" ?><PickUpOpenTimeRQ>' + rentalCars.creds + '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location><Country>' + req.params.dropOffCountryName + '</Country><City>' + req.params.dropOffCityName + '</City><Date year="' + req.params.pickUpYear + '" month="' + req.params.pickUpMonth + '" day="' + req.params.pickUpDay + '"/></PickUpOpenTimeRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<PickUpOpenTimeRQ>' + rentalCars.creds +
+                          '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location>' +
+                          '<Country>' + req.params.dropOffCountryName + '</Country>' +
+                          '<City>' + req.params.dropOffCityName + '</City>' +
+                          '<Date year="' + req.params.pickUpYear + '" month="' + req.params.pickUpMonth + '" day="' + req.params.pickUpDay + '"/>' +
+                        '</PickUpOpenTimeRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
 
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data = parser.toJson(body);
@@ -125,7 +152,14 @@ router.get('/pickUpOpenTime/:countryName/:cityName/:locationName/:locationID/:dr
 
 
 router.get('/dropOffOpenTime/:countryName/:cityName/:locationName/:locationID/:dropOffCountryName/:dropOffCityName/:dropOffLocationID/:dropOffYear/:dropOffMonth/:dropOffDay', function (req, res) {
-    var url = rentalCars.url + encodeURI('<?xml version="1.0" ?><DropOffOpenTimeRQ>' + rentalCars.creds + '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location><Country>' + req.params.dropOffCountryName + '</Country><City>' + req.params.dropOffCityName + '</City><Date year="' + req.params.dropOffYear + '" month="' + req.params.dropOffMonth + '" day="' + req.params.dropOffDay + '"/></DropOffOpenTimeRQ>');
+    var queryString = '<?xml version="1.0" ?>' +
+                        '<DropOffOpenTimeRQ>' + rentalCars.creds +
+                          '<Location id="' + req.params.locationID + '" country="' + req.params.countryName + '" city="' + req.params.cityName + '">' + req.params.locationName + '</Location>' +
+                          '<Country>' + req.params.dropOffCountryName + '</Country>' +
+                          '<City>' + req.params.dropOffCityName + '</City>' +
+                          '<Date year="' + req.params.dropOffYear + '" month="' + req.params.dropOffMonth + '" day="' + req.params.dropOffDay + '"/>' +
+                        '</DropOffOpenTimeRQ>';
+    var url = rentalCars.url + encodeURI(queryString);
 
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         console.log("Body", body);
