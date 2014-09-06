@@ -24,7 +24,6 @@ router.get('/countries', function (req, res) {
         data = parser.toJson(body);
         json = JSON.parse(data);
         countryList = json.PickUpCountryListRS.CountryList;
-        console.log(countryList);
         res.json(countryList);
     });
 });
@@ -39,7 +38,6 @@ router.get('/cities/:country', function (req, res) {
                           '</Country>' +
                         '</PickUpCityListRQ>';
     url = rentalCars.url + encodeURI(queryString);
-    console.log(url);
 
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data, json, dataToDisplay;
@@ -63,7 +61,6 @@ router.get('/pickUpLocation/:country/:city', function (req, res) {
                         '</PickUpLocationListRQ>';
     url = rentalCars.url + encodeURI(queryString);
 
-    console.log(url);
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data, json, dataToDisplay;
 
@@ -85,7 +82,6 @@ router.get('/dropOffCountry/:countryName/:cityName/:locationName/:locationID', f
                         '</DropOffCountryListRQ>';
     url = rentalCars.url + encodeURI(queryString);
 
-    console.log(url);
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data, json, dataToDisplay;
 
@@ -182,12 +178,9 @@ router.get('/dropOffOpenTime/:countryName/:cityName/:locationName/:locationID/:d
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data, json, dataToDisplay;
 
-        console.log("Body", body);
         data = parser.toJson(body, {coerce: true});
-        console.log("To JSON: ", data);
         json = JSON.parse(data);
         dataToDisplay = json.DropOffOpenTimeRS;
-        console.log(dataToDisplay);
         res.json(dataToDisplay);
     });
 });
@@ -212,12 +205,9 @@ router.get('/search/:countryName/:cityName/:locationName/:locationID/:dropOffCou
     request(url, {secureProtocol: "SSLv3_method"}, function (error, response, body) {
         var data, json, dataToDisplay;
 
-        console.log("Body", body);
         data = parser.toJson(body, {coerce: true});
-        console.log("To JSON: ", data);
         json = JSON.parse(data);
         dataToDisplay = json.SearchRS;
-        console.log(dataToDisplay);
         res.json(dataToDisplay);
     });
 });
